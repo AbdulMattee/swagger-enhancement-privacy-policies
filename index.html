@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Swagger UI Enhancement</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        p {
+            margin-bottom: 15px;
+        }
+        ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: #e8f4f8;
+            padding: 20px;
+            border-left: 4px solid #3498db;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .last-updated {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+        .summary {
+            background: #d5f4e6;
+            padding: 20px;
+            border-left: 4px solid #27ae60;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+        .summary h2 {
+            color: #27ae60;
+            border: none;
+            margin-top: 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Privacy Policy for Swagger UI Enhancement</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> October 21, 2025</p>
+
+        <h2>Overview</h2>
+        <p>Swagger UI Enhancement ("the Extension") is committed to protecting your privacy. This privacy policy explains how the Extension handles data.</p>
+
+        <h2>Data Collection and Storage</h2>
+        
+        <h3>What Data is Stored</h3>
+        <p>The Extension stores the following data <strong>locally on your device only</strong>:</p>
+        <ul>
+            <li><strong>JWT Tokens:</strong> Authentication tokens you manually save with custom names</li>
+            <li><strong>Favorite APIs:</strong> API endpoints you mark as favorites</li>
+            <li><strong>Request Bodies:</strong> API request body templates you save per endpoint</li>
+            <li><strong>User Preferences:</strong>
+                <ul>
+                    <li>Table of Contents width and collapse state</li>
+                    <li>Tour completion status</li>
+                    <li>First-time user flag</li>
+                </ul>
+            </li>
+            <li><strong>Enabled Domains:</strong> List of domains where you manually activated the extension</li>
+        </ul>
+
+        <h3>Where Data is Stored</h3>
+        <p>All data is stored locally in your browser using:</p>
+        <ul>
+            <li><code>localStorage</code> for tokens, favorites, request bodies, and preferences</li>
+            <li><code>chrome.storage.local</code> for enabled domains list</li>
+        </ul>
+        
+        <div class="highlight">
+            <strong>No data is ever transmitted to external servers or third parties.</strong>
+        </div>
+
+        <h2>Data Transmission</h2>
+        
+        <h3>What We DO NOT Do</h3>
+        <ul>
+            <li>❌ We do NOT collect any personal information</li>
+            <li>❌ We do NOT transmit any data to remote servers</li>
+            <li>❌ We do NOT share data with third parties</li>
+            <li>❌ We do NOT use analytics or tracking</li>
+            <li>❌ We do NOT sell or monetize your data</li>
+            <li>❌ We do NOT access data from other websites</li>
+        </ul>
+
+        <h3>External Resources</h3>
+        <p>The Extension loads Font Awesome icons from a CDN (<code>https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css</code>) for UI styling purposes only. This is a CSS stylesheet and does not execute JavaScript or collect any data.</p>
+
+        <h2>Permissions Usage</h2>
+        
+        <h3>activeTab</h3>
+        <p>Used only when you click the extension icon to manually activate it on a page. Allows us to check if Swagger UI exists and inject enhancement features.</p>
+
+        <h3>scripting</h3>
+        <p>Used to inject CSS and JavaScript files into Swagger UI pages to provide enhancement features. All code is bundled with the extension.</p>
+
+        <h3>storage</h3>
+        <p>Used to save your tokens, favorites, request bodies, preferences, and enabled domains locally in your browser.</p>
+
+        <h3>Host Permissions</h3>
+        <p>Used to make extension resources accessible on Swagger UI pages. The extension only activates on pages containing Swagger UI elements.</p>
+
+        <h2>Data Control</h2>
+        
+        <h3>Your Rights</h3>
+        <p>You have complete control over your data:</p>
+        <ul>
+            <li><strong>View Data:</strong> All data is stored in your browser's localStorage and can be viewed in Developer Tools</li>
+            <li><strong>Delete Data:</strong> Clear extension data by:
+                <ul>
+                    <li>Removing individual tokens, favorites, or request bodies through the extension UI</li>
+                    <li>Clearing browser data for the extension</li>
+                    <li>Uninstalling the extension (removes all stored data)</li>
+                </ul>
+            </li>
+            <li><strong>Export Data:</strong> You can manually export data from localStorage if needed</li>
+        </ul>
+
+        <h3>Data Retention</h3>
+        <p>Data is retained locally until you:</p>
+        <ul>
+            <li>Manually delete it through the extension</li>
+            <li>Clear your browser data</li>
+            <li>Uninstall the extension</li>
+        </ul>
+
+        <h2>Security</h2>
+        <ul>
+            <li>All data remains on your device</li>
+            <li>No data transmission means no interception risk</li>
+            <li>No server-side storage means no data breach risk</li>
+            <li>You control all data through browser settings</li>
+        </ul>
+
+        <h2>Children's Privacy</h2>
+        <p>The Extension does not knowingly collect any information from children under 13. The Extension is designed for software developers and API documentation users.</p>
+
+        <h2>Changes to Privacy Policy</h2>
+        <p>We may update this privacy policy from time to time. Changes will be reflected in the "Last Updated" date. Continued use of the Extension after changes constitutes acceptance of the updated policy.</p>
+
+        <h2>Open Source</h2>
+        <p>This extension is open source. You can review the complete source code to verify our privacy practices at our <a href="https://github.com/AbdulMattee/swagger-extension" target="_blank">GitHub repository</a>.</p>
+
+        <h2>Contact</h2>
+        <p>If you have questions about this privacy policy or the Extension's privacy practices, please open an issue on our GitHub repository.</p>
+
+        <h2>Compliance</h2>
+        <p>This Extension complies with:</p>
+        <ul>
+            <li>Chrome Web Store Developer Program Policies</li>
+            <li>General Data Protection Regulation (GDPR) principles</li>
+            <li>California Consumer Privacy Act (CCPA) principles</li>
+        </ul>
+
+        <div class="summary">
+            <h2>Summary</h2>
+            <p><strong>In Plain English:</strong></p>
+            <ul>
+                <li>✅ Everything stays on your computer</li>
+                <li>✅ We don't collect, transmit, or sell anything</li>
+                <li>✅ You control all your data</li>
+                <li>✅ We don't track you</li>
+                <li>✅ We don't use analytics</li>
+                <li>✅ Your privacy is 100% protected</li>
+            </ul>
+        </div>
+
+        <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
+        <p style="text-align: center; color: #7f8c8d;"><em>By using Swagger UI Enhancement, you acknowledge that you have read and understood this Privacy Policy.</em></p>
+    </div>
+</body>
+</html>
