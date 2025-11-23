@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swagger UI Enhancement - Features Guide</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+        font-weight: 700;
+      }
+
+      header p {
+        font-size: 1.2em;
+        opacity: 0.95;
+      }
+
+      .content {
+        padding: 40px;
+      }
+
+      .intro {
+        background: #f8f9fa;
+        padding: 30px;
+        border-radius: 8px;
+        margin-bottom: 40px;
+        border-left: 4px solid #667eea;
+      }
+
+      .intro h2 {
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+
+      .feature {
+        margin-bottom: 50px;
+        padding-bottom: 40px;
+        border-bottom: 2px solid #e9ecef;
+      }
+
+      .feature:last-child {
+        border-bottom: none;
+      }
+
+      .feature-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .feature-icon {
+        font-size: 3em;
+        margin-right: 20px;
+        min-width: 60px;
+        text-align: center;
+      }
+
+      .feature-title {
+        flex: 1;
+      }
+
+      .feature-title h2 {
+        color: #2c3e50;
+        font-size: 1.8em;
+        margin-bottom: 5px;
+      }
+
+      .feature-title .subtitle {
+        color: #6c757d;
+        font-size: 1.1em;
+      }
+
+      .feature-description {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+      }
+
+      .feature-description h3 {
+        color: #495057;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+      }
+
+      .how-to-use {
+        background: #e7f3ff;
+        padding: 20px;
+        border-radius: 8px;
+        border-left: 4px solid #0066cc;
+      }
+
+      .how-to-use h3 {
+        color: #0066cc;
+        margin-bottom: 15px;
+        font-size: 1.2em;
+      }
+
+      .steps {
+        list-style: none;
+        counter-reset: step-counter;
+      }
+
+      .steps li {
+        counter-increment: step-counter;
+        margin-bottom: 15px;
+        padding-left: 40px;
+        position: relative;
+      }
+
+      .steps li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #667eea;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.9em;
+      }
+
+      .keyboard-shortcuts {
+        background: #fff3cd;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid #ffc107;
+      }
+
+      .keyboard-shortcuts h4 {
+        color: #856404;
+        margin-bottom: 10px;
+        font-size: 1em;
+      }
+
+      .shortcut {
+        display: inline-block;
+        background: #495057;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.9em;
+        margin-right: 10px;
+        font-weight: 600;
+      }
+
+      .tips {
+        background: #d1ecf1;
+        padding: 15px 20px;
+        border-radius: 8px;
+        margin-top: 15px;
+        border-left: 4px solid #17a2b8;
+      }
+
+      .tips h4 {
+        color: #0c5460;
+        margin-bottom: 10px;
+        font-size: 1em;
+      }
+
+      .tips ul {
+        margin-left: 20px;
+      }
+
+      .tips li {
+        margin-bottom: 5px;
+        color: #0c5460;
+      }
+
+      footer {
+        background: #2c3e50;
+        color: white;
+        padding: 30px;
+        text-align: center;
+      }
+
+      footer a {
+        color: #667eea;
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #28a745;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+
+      .badge.new {
+        background: #dc3545;
+      }
+
+      @media (max-width: 768px) {
+        header h1 {
+          font-size: 2em;
+        }
+
+        .feature-header {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .feature-icon {
+          margin-right: 0;
+          margin-bottom: 15px;
+        }
+
+        .content {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>🚀 Swagger UI Enhancement</h1>
+        <p>Complete Features Guide & Usage Instructions</p>
+      </header>
+
+      <div class="content">
+        <div class="intro">
+          <h2>Welcome to Swagger UI Enhancement!</h2>
+          <p>
+            This Chrome Extension supercharges your Swagger UI experience with
+            powerful features designed to boost productivity for API developers,
+            testers, and technical teams. Below you'll find detailed
+            explanations of each feature and step-by-step instructions on how to
+            use them.
+          </p>
+        </div>
+
+        <!-- Feature 1: Token Management -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">🔐</div>
+            <div class="feature-title">
+              <h2>Token Management</h2>
+              <p class="subtitle">
+                Save, manage, and auto-inject JWT/Bearer tokens
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              The Token Management system allows you to save multiple
+              authentication tokens (JWT, Bearer, etc.) with custom names and
+              switch between them instantly. When you select a token, it's
+              automatically injected into all your API requests, eliminating the
+              need to manually copy-paste tokens into Swagger's authorization
+              modal.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Stop wasting time copying tokens
+              between different environments (dev, staging, production) or user
+              roles. One click switches your entire authentication context.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>Add a Token:</strong> Click the
+                <strong>➕</strong> button in the token panel at the top of the
+                page
+              </li>
+              <li>
+                <strong>Name Your Token:</strong> Enter a descriptive name
+                (e.g., "Production Admin", "Dev User", "Staging API")
+              </li>
+              <li>
+                <strong>Paste Token Value:</strong> Enter your JWT or Bearer
+                token (the extension accepts any format)
+              </li>
+              <li>
+                <strong>Save:</strong> Click "Add Token" - the token is saved
+                and automatically activated
+              </li>
+              <li>
+                <strong>Switch Tokens:</strong> Use the dropdown menu to select
+                different tokens instantly
+              </li>
+              <li>
+                <strong>Copy Token:</strong> Click the 📋 button to copy the
+                active token to your clipboard
+              </li>
+              <li>
+                <strong>Manage Tokens:</strong> Click the ⚙️ button to view all
+                saved tokens, update them, or delete them
+              </li>
+            </ol>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  The active token is displayed prominently in red text for easy
+                  identification
+                </li>
+                <li>
+                  Tokens are automatically injected into ALL API requests (both
+                  Swagger UI and manual fetch/XHR calls)
+                </li>
+                <li>
+                  Your tokens are stored securely in your browser's local
+                  storage - never transmitted externally
+                </li>
+                <li>
+                  You can have unlimited tokens saved for different environments
+                  and users
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 2: API Search Sidebar -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">🔍</div>
+            <div class="feature-title">
+              <h2>API Search Sidebar</h2>
+              <p class="subtitle">
+                Lightning-fast search across all API endpoints
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              The API Search Sidebar provides instant search across all
+              available API endpoints. Search by HTTP method (GET, POST, etc.),
+              path, description, or tag. Navigate results with your keyboard and
+              jump directly to any endpoint with smooth scrolling and
+              highlighting.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> In large API documentation with
+              hundreds of endpoints, finding a specific API manually is
+              time-consuming. This feature lets you find any endpoint in
+              seconds.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>Open Sidebar:</strong> Click the burger menu button (☰)
+                in the top-left corner
+              </li>
+              <li>
+                <strong>Start Typing:</strong> Enter your search query - it
+                searches across methods, paths, descriptions, and tags
+              </li>
+              <li>
+                <strong>Navigate Results:</strong> Use <kbd>↑</kbd> and
+                <kbd>↓</kbd> arrow keys to move through results
+              </li>
+              <li>
+                <strong>Select Endpoint:</strong> Press <kbd>Enter</kbd> to jump
+                to the highlighted endpoint
+              </li>
+              <li>
+                <strong>Close Sidebar:</strong> Press <kbd>Esc</kbd> or click
+                the ✕ button
+              </li>
+            </ol>
+
+            <div class="keyboard-shortcuts">
+              <h4>⌨️ Keyboard Shortcuts</h4>
+              <span class="shortcut">Cmd+K</span> (macOS) or
+              <span class="shortcut">Ctrl+K</span> (Windows/Linux) - Toggle
+              sidebar<br />
+              <span class="shortcut">↑ ↓</span> Navigate results<br />
+              <span class="shortcut">Enter</span> Select endpoint<br />
+              <span class="shortcut">Esc</span> Close sidebar
+            </div>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>Search is real-time - results update as you type</li>
+                <li>Search is case-insensitive for convenience</li>
+                <li>
+                  Selected endpoints are highlighted with an animation for easy
+                  identification
+                </li>
+                <li>
+                  The sidebar remembers your last search query during the
+                  session
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 3: Table of Contents -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">📑</div>
+            <div class="feature-title">
+              <h2>Table of Contents (TOC)</h2>
+              <p class="subtitle">
+                Fixed navigation panel for quick API overview
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              The Table of Contents displays all API tag sections in a fixed
+              left sidebar. It provides a bird's-eye view of your API
+              documentation and allows instant navigation to any section. The
+              TOC is fully customizable - resize it, collapse it, or configure
+              it to close automatically after clicking.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Large API docs are hard to
+              navigate. The TOC gives you a persistent overview and one-click
+              access to any section, no matter where you are on the page.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>View TOC:</strong> The TOC appears automatically on the
+                left side if your API has tag sections
+              </li>
+              <li>
+                <strong>Navigate:</strong> Click any tag name to jump to that
+                section instantly
+              </li>
+              <li>
+                <strong>Collapse/Expand:</strong> Click the toggle button (◀/▶)
+                or use the keyboard shortcut
+              </li>
+              <li>
+                <strong>Resize Width:</strong> Drag the right edge of the TOC to
+                adjust its width
+              </li>
+              <li>
+                <strong>Reset Width:</strong> Double-click the resize handle to
+                reset to auto-calculated width
+              </li>
+              <li>
+                <strong>Configure Behavior:</strong> In the settings menu (⚙️),
+                toggle "Close TOC on click" to auto-collapse after navigation
+              </li>
+            </ol>
+
+            <div class="keyboard-shortcuts">
+              <h4>⌨️ Keyboard Shortcuts</h4>
+              <span class="shortcut">Cmd+J</span> (macOS) or
+              <span class="shortcut">Ctrl+J</span> (Windows/Linux) - Toggle TOC
+            </div>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  Your TOC width and collapsed state are saved automatically
+                </li>
+                <li>
+                  The TOC intelligently adjusts its width to avoid overlapping
+                  content
+                </li>
+                <li>
+                  Enable "Close on click" in settings for a minimalist workflow
+                </li>
+                <li>
+                  The TOC only appears if your API documentation has tag
+                  sections
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 4: Favorite APIs -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">⭐</div>
+            <div class="feature-title">
+              <h2>Favorite APIs (Quick Access Pills)</h2>
+              <p class="subtitle">
+                Bookmark frequently-used endpoints for instant access
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              Mark any API endpoint as a favorite by clicking the star icon next
+              to it. Your favorite APIs appear as clickable "pills" at the top
+              of the page, providing one-click access to your most-used
+              endpoints. The system intelligently removes common path prefixes
+              for cleaner display.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Most developers work with a
+              subset of APIs repeatedly. Favorites let you skip the search and
+              jump directly to the endpoints you use most.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>Add Favorite:</strong> Click the ⭐ star icon next to
+                any API endpoint
+              </li>
+              <li>
+                <strong>View Favorites:</strong> Your favorite APIs appear as
+                pills in the "Favorite APIs" section at the top
+              </li>
+              <li>
+                <strong>Navigate:</strong> Click any pill to instantly jump to
+                that endpoint
+              </li>
+              <li>
+                <strong>Remove Favorite:</strong> Click the × button on a pill,
+                or click the star icon again on the endpoint
+              </li>
+              <li>
+                <strong>Configure Sticky:</strong> In settings (⚙️), toggle
+                sticky behavior for the favorites section
+              </li>
+            </ol>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  Pills are color-coded by HTTP method (GET, POST, PUT, DELETE,
+                  etc.)
+                </li>
+                <li>
+                  Common path prefixes (like /api/v1) are automatically removed
+                  for cleaner display
+                </li>
+                <li>
+                  Long paths are intelligently truncated to show the most
+                  relevant parts
+                </li>
+                <li>
+                  Favorites persist across browser sessions and page refreshes
+                </li>
+                <li>
+                  The favorites section can be sticky (scrolls with you) -
+                  toggle in settings
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 5: Request Body Persistence -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">💾</div>
+            <div class="feature-title">
+              <h2>Request Body Persistence</h2>
+              <p class="subtitle">Save and load request body templates</p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              For POST, PUT, PATCH, and DELETE endpoints, the extension adds
+              three action buttons: Save, Load, and Format. Save your request
+              bodies as templates and reload them instantly. The Format button
+              pretty-prints your JSON for better readability and helps catch
+              syntax errors.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Stop re-typing the same request
+              bodies over and over. Save them once and reload them whenever
+              needed. The format button ensures your JSON is valid before
+              sending.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>Expand Endpoint:</strong> Click on any POST, PUT, PATCH,
+                or DELETE endpoint to expand it
+              </li>
+              <li>
+                <strong>Find Buttons:</strong> Look for the "Quick Actions"
+                section with three buttons
+              </li>
+              <li>
+                <strong>Save Body:</strong> Enter your request body, then click
+                the 💾 Save button
+              </li>
+              <li>
+                <strong>Load Body:</strong> Click the 📂 Load button to retrieve
+                your saved body
+              </li>
+              <li>
+                <strong>Format JSON:</strong> Click the ✨ Format button to
+                pretty-print and validate your JSON
+              </li>
+            </ol>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  Each endpoint has its own saved body - they don't interfere
+                  with each other
+                </li>
+                <li>
+                  The Format button validates JSON and shows an error if it's
+                  malformed
+                </li>
+                <li>
+                  Saved bodies persist across page refreshes and browser
+                  sessions
+                </li>
+                <li>
+                  GET endpoints don't show these buttons (they don't have
+                  request bodies)
+                </li>
+                <li>
+                  Bodies are stored in your browser's local storage - never sent
+                  externally
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 6: Settings & Customization -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">⚙️</div>
+            <div class="feature-title">
+              <h2>Settings & Customization</h2>
+              <p class="subtitle">Personalize your experience</p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              The settings panel lets you customize the extension's behavior to
+              match your workflow. Toggle sticky positioning for the token panel
+              and favorites, configure TOC behavior, manage your saved tokens,
+              and restart the interactive tour.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Everyone works differently.
+              Settings let you tailor the extension to your preferences.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>Open Settings:</strong> Click the ⚙️ gear icon in the
+                token panel
+              </li>
+              <li>
+                <strong>Manage Tokens:</strong> View all saved tokens,
+                activate/deactivate them, update values, or delete them
+              </li>
+              <li>
+                <strong>Toggle Sticky Token Panel:</strong> Enable/disable
+                sticky positioning for the token panel
+              </li>
+              <li>
+                <strong>Toggle Sticky Favorites:</strong> Enable/disable sticky
+                positioning for favorite APIs
+              </li>
+              <li>
+                <strong>Configure TOC:</strong> Enable "Close TOC on click" to
+                auto-collapse after navigation
+              </li>
+              <li>
+                <strong>Restart Tour:</strong> Click "Restart Tour" to see the
+                interactive walkthrough again
+              </li>
+            </ol>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  All settings are saved automatically and persist across
+                  sessions
+                </li>
+                <li>
+                  Sticky positioning keeps UI elements visible while scrolling
+                </li>
+                <li>
+                  You can update token values without deleting and re-adding
+                  them
+                </li>
+                <li>
+                  The tour is a great way to rediscover features you might have
+                  forgotten
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 7: Interactive Tour -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">🎓</div>
+            <div class="feature-title">
+              <h2>Interactive First-Time Tour</h2>
+              <p class="subtitle">Guided walkthrough of all features</p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              When you first use the extension, an interactive tour guides you
+              through all features with step-by-step instructions and visual
+              highlights. The tour intelligently adapts to your API
+              documentation and can be restarted anytime from settings.
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Discover all features without
+              reading documentation. The tour shows you exactly where everything
+              is and how to use it.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 How to Use</h3>
+            <ol class="steps">
+              <li>
+                <strong>First Visit:</strong> The tour starts automatically on
+                your first visit to a Swagger page
+              </li>
+              <li>
+                <strong>Navigate Tour:</strong> Click "Next" to move forward,
+                "Previous" to go back
+              </li>
+              <li>
+                <strong>Skip Tour:</strong> Click "Skip Tour" if you want to
+                explore on your own
+              </li>
+              <li>
+                <strong>Restart Tour:</strong> Open settings (⚙️) and click
+                "Restart Tour" to see it again
+              </li>
+            </ol>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  The tour locks scrolling to prevent confusion - you can't
+                  accidentally navigate away
+                </li>
+                <li>
+                  Each step highlights the relevant UI element with animations
+                </li>
+                <li>
+                  The tour adapts to your API - it finds the best example
+                  endpoints to demonstrate
+                </li>
+                <li>You can restart the tour anytime to refresh your memory</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feature 8: Keyboard Shortcuts -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">⌨️</div>
+            <div class="feature-title">
+              <h2>Keyboard Shortcuts</h2>
+              <p class="subtitle">Work faster without touching the mouse</p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>What is this feature?</h3>
+            <p>
+              The extension is designed for keyboard-first workflows. Every
+              major feature has a keyboard shortcut, allowing you to navigate,
+              search, and manage tokens without ever touching your mouse.
+              Shortcuts automatically adapt to your operating system (Cmd for
+              Mac, Ctrl for Windows/Linux).
+            </p>
+            <p>
+              <strong>Why you need it:</strong> Power users prefer keyboards.
+              Shortcuts make you significantly faster and more productive.
+            </p>
+          </div>
+
+          <div class="how-to-use">
+            <h3>📖 Complete Keyboard Shortcuts Reference</h3>
+
+            <div class="keyboard-shortcuts">
+              <h4>🔍 Search & Navigation</h4>
+              <span class="shortcut">Cmd+K</span> or
+              <span class="shortcut">Ctrl+K</span> - Toggle API Search
+              Sidebar<br />
+              <span class="shortcut">Cmd+J</span> or
+              <span class="shortcut">Ctrl+J</span> - Toggle Table of Contents<br />
+              <span class="shortcut">↑</span> <span class="shortcut">↓</span> -
+              Navigate search results<br />
+              <span class="shortcut">Enter</span> - Select highlighted search
+              result<br />
+              <span class="shortcut">Esc</span> - Close modals and sidebar
+            </div>
+
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  Shortcuts are displayed in tooltips when you hover over
+                  buttons
+                </li>
+                <li>
+                  The extension automatically detects your OS and shows the
+                  correct shortcuts
+                </li>
+                <li>All modals and overlays can be closed with the Esc key</li>
+                <li>Keyboard navigation works even when the sidebar is open</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Installation Guide -->
+        <div class="feature">
+          <div class="feature-header">
+            <div class="feature-icon">📥</div>
+            <div class="feature-title">
+              <h2>Installation & Activation</h2>
+              <p class="subtitle">Get started in minutes</p>
+            </div>
+          </div>
+
+          <div class="feature-description">
+            <h3>How to Install</h3>
+            <p>
+              The extension can be loaded directly into Chrome for immediate
+              use. It automatically activates on common Swagger UI URLs, with
+              manual activation available for custom domains.
+            </p>
+          </div>
+            <div class="tips">
+              <h4>💡 Pro Tips</h4>
+              <ul>
+                <li>
+                  Manual activation is "sticky" - once enabled for a domain, it
+                  auto-loads on future visits
+                </li>
+                <li>The extension works on localhost and remote servers</li>
+                <li>
+                  All your data (tokens, favorites, settings) is stored locally
+                  in your browser
+                </li>
+                <li>
+                  No internet connection required after initial Font Awesome
+                  icon load
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <h3>Need Help?</h3>
+        <p>
+          For issues, questions, or feature requests, please refer to the
+          extension documentation.
+        </p>
+        <p style="margin-top: 20px; opacity: 0.8">
+          <strong>Privacy:</strong> This extension stores all data locally in
+          your browser. No data is transmitted to external servers.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
